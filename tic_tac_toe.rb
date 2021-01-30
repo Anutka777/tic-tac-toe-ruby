@@ -15,19 +15,16 @@ end
 
 # Board
 class Board
-  def initialize(
-    cell1 = 1, cell2 = 2, cell3 = 3, cell4 = 4, cell5 = 5,
-    cell6 = 6, cell7 = 7, cell8 = 8, cell9 = 9
-  )
-    @cell1 = cell1
-    @cell2 = cell2
-    @cell3 = cell3
-    @cell4 = cell4
-    @cell5 = cell5
-    @cell6 = cell6
-    @cell7 = cell7
-    @cell8 = cell8
-    @cell9 = cell9
+  def initialize
+    @cell1 = 1
+    @cell2 = 2
+    @cell3 = 3
+    @cell4 = 4
+    @cell5 = 5
+    @cell6 = 6
+    @cell7 = 7
+    @cell8 = 8
+    @cell9 = 9
   end
 
   def draw_board
@@ -40,11 +37,11 @@ class Board
     puts '-------------'
   end
 
-  # def self.ask_and_return_mark_place
-  #   puts 'Where do you want to put a mark?'
-  #   puts 'Enter the number of the cell.'
-  #   @@choice = gets
-  # end
+  def self.ask_and_return_mark_place
+    puts 'Where do you want to put a mark?'
+    puts 'Enter the number of the cell.'
+    @choice = gets
+  end
 end
 
 puts 'Player 1, what is your name?'
