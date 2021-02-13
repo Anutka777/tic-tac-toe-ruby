@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-# To control game flow and choosing winner
+# To control game flow and choose winner
 class Game
+  attr_reader :player_x, :player_o, :board
+
   def initialize
     @player_x = Players.new('X')
     @player_o = Players.new('0')
@@ -21,7 +23,21 @@ class Players
     @mark = mark
   end
 
-  def make_move; end
+  # Returns input
+  def make_move
+    print "Please enter the number of the cell you want to place your mark.\n"
+    loop do
+      puts 'You should enter the number from 1 to 9.'
+      input = gets.chomp.to_i
+      break input if validate_input(input) == true
+    end
+  end
+
+  private
+
+  def validate_input(input)
+    input >= 1 && input <= 9 ? true : false
+  end
 end
 
 # To show current state of the game
@@ -42,7 +58,7 @@ class Board
   end
 
   def place_mark(cell, mark)
-    cells[cell - 1] = mark
+    @cells[cell - 1] = mark
   end
 end
 
@@ -68,4 +84,11 @@ end
 #   return @place
 # end
 
-Game.new
+new_game = Game.new
+p new_game.player_o
+p new_game.player_x.make_move
+# p new_game.board
+# new_game.board.place_mark(1, 'X')
+# new_game.board.place_mark(19, 'O')
+# new_game.board.print_on_screen
+# p new_game.player_x.validate_input(22.to_i)
