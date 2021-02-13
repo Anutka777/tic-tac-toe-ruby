@@ -1,22 +1,30 @@
 # frozen_string_literal: true
 
-# Tic-tac-toe
+# To control game flow and choosing winner
 class Game
   def initialize
     @player_x = Players.new('X')
     @player_o = Players.new('0')
     @board = Board.new
   end
+
+  def control_game_flow; end
+
+  def determine_winnier; end
+
+  def game_over; end
 end
 
-# Players
+# To make a move
 class Players
   def initialize(mark)
     @mark = mark
   end
+
+  def make_move; end
 end
 
-# Board
+# To show current state of the game
 class Board
   def initialize
     @cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -33,7 +41,7 @@ class Board
     HEREDOC
   end
 
-  def put_mark(cell, mark)
+  def place_mark(cell, mark)
     cells[cell - 1] = mark
   end
 end
@@ -59,3 +67,5 @@ end
 #   end
 #   return @place
 # end
+
+Game.new
