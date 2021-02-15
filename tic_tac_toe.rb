@@ -2,32 +2,42 @@
 
 # To control game flow and choose winner
 class Game
-  attr_reader :player_x, :player_o, :board
+  attr_reader :player_x, :player_o, :player_active, :board
 
   def initialize
     @player_x = Players.new('Player1', 'X')
     @player_o = Players.new('Player2', '0')
+    @player_active = player_x
     @board = Board.new
   end
 
   def control_game_flow
     board.print_on_screen
     loop do
-      print "#{player_x.name}, please enter the number of the cell you want to place your mark.\n"
-      board.place_mark(player_x.mark)
-      board.print_on_screen
-      break if check_winnier == true
-      print "#{player_o.name}, please enter the number of the cell you want to place your mark.\n"
-      board.place_mark(player_o.mark)
-      board.print_on_screen
-      break if check_winnier == true
+      print "#{player_active.name}, please enter the number of the cell you want to place your mark.\n"
+      board.place_mark(player_active.mark)
+      break if check_winnier != false
+
+      switch_players
     end
     game_over
+  end
+ 
+  private
+
+  def switch_players
+    if @player_active == @player_x
+      @player_active = @player_o
+    else
+      @player_active = player_x
+    end
   end
 
   def check_winnier
     true
   end
+
+  public
 
   def game_over
     puts 'Thanks for playing.'
@@ -46,7 +56,7 @@ class Players
   # Returns input
   def self.make_move
     loop do
-      print '(Enter the number from 1 to 9) > '
+      print '(Enter the number from 1 to 9) >> '
       input = gets.chomp.to_i
       break input if validate_input(input) == true
     end
@@ -81,6 +91,7 @@ class Board
       cell = Players.make_move
       break @cells[cell - 1] = mark if occupancy_check(cell) == true
     end
+    print_on_screen
   end
 
   private
