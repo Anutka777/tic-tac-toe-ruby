@@ -11,6 +11,17 @@ class Game
     @board = Board.new
   end
 
+  @@WINNING_LINES = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2]
+  ]
+
   def control_game_flow
     board.print_on_screen
     loop do
@@ -22,7 +33,7 @@ class Game
     end
     game_over
   end
- 
+
   private
 
   def switch_players
@@ -34,12 +45,17 @@ class Game
   end
 
   def check_winnier
-    true
+    @@WINNING_LINES.any? do |line|
+      line.all? do |el|
+        board.cells[el] == @player_active.mark
+      end
+    end
   end
 
   public
 
   def game_over
+    puts "#{@player_active.name} won the game!"
     puts 'Thanks for playing.'
   end
 end
@@ -69,6 +85,8 @@ end
 
 # To show current state of the game
 class Board
+  attr_reader :cells
+
   def initialize
     @cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
@@ -101,24 +119,5 @@ class Board
   end
 end
 
-# def self.ask_players_names
-#   puts 'Player 1, what is your name?'
-#   player1 = gets.chomp!
-#   Players.new(player1, 'X')
-#   puts "Hello, #{player1}!\nYou will be playing with X mark"
-#   puts 'Player 2, what is your name?'
-#   player2 = gets.chomp!
-#   Players.new(player2, 'O')
-#   puts "Hello, #{player2}!\nYou will be playing with 0 mark"
-# end
-
 new_game = Game.new
-# p new_game.player_o
-# p new_game.player_x.make_move
-# p new_game.board
-# new_game.board.place_mark(new_game.player_x.make_move, new_game.player_x.mark)
-# new_game.board.place_mark(19, 'O')
-# new_game.board.print_on_screen
-# p new_game.player_x.validate_input(22.to_i)
 new_game.control_game_flow
-# p Players.make_move
