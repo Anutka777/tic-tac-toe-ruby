@@ -27,11 +27,15 @@ class Game
     loop do
       print "#{player_active.name}, please enter the number of the cell you want to place your mark.\n"
       board.place_mark(player_active.mark)
-      break if check_winnier != false
+      break if check_winnier != false || check_tie != false
 
       switch_players
     end
-    game_over
+    if check_tie
+      tie_game
+    else
+      game_over
+    end
   end
 
   private
@@ -52,7 +56,13 @@ class Game
     end
   end
 
-  public
+  def check_tie
+    board.cells.all? { |cell| cell.is_a? String }
+  end
+
+  def tie_game
+    puts 'It\'s a tie game!'
+  end
 
   def game_over
     puts "#{@player_active.name} won the game!"
