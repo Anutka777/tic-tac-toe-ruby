@@ -23,6 +23,7 @@ class Game
   ]
 
   def control_game_flow
+    greet
     board.print_on_screen
     loop do
       print "#{player_active.name}, please enter the number of the cell you want to place your mark.\n"
@@ -39,6 +40,14 @@ class Game
   end
 
   private
+
+  def greet
+    puts "
+    ╔╦╗┬┌─┐  ╔╦╗┌─┐┌─┐  ╔╦╗┌─┐┌─┐
+     ║ ││     ║ ├─┤│     ║ │ │├┤ 
+     ╩ ┴└─┘   ╩ ┴ ┴└─┘   ╩ └─┘└─┘
+    "
+  end
 
   def switch_players
     if @player_active == @player_x
