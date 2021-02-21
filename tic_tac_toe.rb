@@ -26,7 +26,7 @@ class Game
     greet
     board.print_on_screen
     loop do
-      print "#{player_active.name}, please enter the number of the cell you want to place your mark.\n"
+      print "#{player_active.name}, please enter the number of the cell you want to place your mark\n"
       board.place_mark(player_active.mark)
       break if check_winnier != false || check_tie != false
 
